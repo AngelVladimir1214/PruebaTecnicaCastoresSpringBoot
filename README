@@ -1,0 +1,46 @@
+*************************************************************
+*             Tecnologias Utilizadas                        *
+*************************************************************
+IDE VSCode
+
+Lenguaje de programacion Java JDK version 17
+
+Frameworks
+    -Spring MVC version 3.2.5
+    -Spring Data JPA
+    -Thymeleaf
+
+Base de datos
+MySQL y MySQ LWorkbrench 9.0.5
+
+
+*************************************************************
+*Instruccion de ejecucion de proyecto                       *
+*************************************************************
+
+++++++Creacion de Base de Datos+++++++++++
+
+-Crear BD en MySQL
+CREATE DATABASE inventario;
+
+-Ejecutar comandos del "Script_DB_Inventario" que se encuentra en github
+
+
+++++++Configurar conexion a BD en proyecto springboot+++++++++++
+Se configura en el archivo application.properties
+
+spring.datasource.url=jdbc:mysql://localhost:3306/inventario
+spring.datasource.username=tu_usuario
+spring.datasource.password=tu_password
+
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+
+++++++Comandos para ejecutar proyecto+++++++++++
+
+mvn clean spring-boot:run
+
+Para acceder a la aplicacion:
+http://localhost:8080/login

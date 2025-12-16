@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f4f6f9;
+        }
+
+        /* HEADER */
+        .header {
+            background: #1e3c72;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            background: #c0392b;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .logout:hover {
+            background: #a93226;
+        }
+
+        /* MAIN */
+        .container {
+            padding: 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .container h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        /* GRID DE OPCIONES */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card span {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>Sistema de Inventarios</h1>
+    <a class="logout" th:href="@{/logout}">Cerrar sesión</a>
+</div>
+
+<!-- CONTENIDO -->
+<div class="container">
+    <h2>Panel de Administrador</h2>
+
+    <div class="grid">
+
+        <a class="card" th:href="@{/inventario}">
+            <span>📦</span>
+            <h3>Ver Inventario</h3>
+        </a>
+
+        <a class="card" th:href="@{/inventario/nuevo}">
+            <span>➕</span>
+            <h3>Agregar Producto</h3>
+        </a>
+
+        <a class="card" th:href="@{/movimientos}">
+            <span>📜</span>
+            <h3>Historial de Movimientos</h3>
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

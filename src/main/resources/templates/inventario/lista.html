@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Inventario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        thead {
+            background-color: #2c3e50;
+            color: #ffffff;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .estado-activo {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .estado-inactivo {
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        .acciones a {
+            display: inline-block;
+            margin: 4px;
+            padding: 6px 10px;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .btn-entrada {
+            background-color: #2980b9;
+        }
+
+        .btn-baja {
+            background-color: #c0392b;
+        }
+
+        .btn-reactivar {
+            background-color: #27ae60;
+        }
+
+        .btn-entrada:hover,
+        .btn-baja:hover,
+        .btn-reactivar:hover {
+            opacity: 0.85;
+        }
+
+        /* ====== ESTADO DE PRODUCTO ====== */
+        .estado-col {
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            min-width: 80px;
+        }
+
+        /* Activo */
+        .badge-activo {
+            background-color: #2ecc71;
+            /* verde */
+        }
+
+        /* Inactivo */
+        .badge-inactivo {
+            background-color: #e74c3c;
+            /* rojo */
+        }
+
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>📦 Inventario de Productos</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Estatus</th>
+                    <th>Agregar</th>
+                    <th>Alta/Baja</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="producto : ${productos}">
+                    <td th:text="${producto.idProducto}"></td>
+                    <td th:text="${producto.nombre}"></td>
+                    <td>$<span th:text="${producto.precio}"></span></td>
+                    <td th:text="${producto.cantidad}"></td>
+
+                    <td>
+                        <span th:if="${producto.estatus == 1}" class="estado-activo">Activo</span>
+                        <span th:if="${producto.estatus == 0}" class="estado-inactivo">Inactivo</span>
+                    </td>
+
+                    <td class="acciones">
+                        <!-- Entrada de inventario -->
+                        <a th:if="${producto.estatus == 1}"
+                            th:href="@{/inventario/entrada/{id}(id=${producto.idProducto})}" class="btn-entrada">
+                            Entrada
+                        </a>
+                    </td>
+
+    <td class="estado-col">
+
+    <!-- ACTIVO → Dar de baja -->
+    <a th:if="${producto.estatus == 1}"
+       th:href="@{/inventario/baja/{id}(id=${producto.idProducto})}"
+       class="btn btn-danger">
+        Dar de baja
+    </a>
+
+    <!-- INACTIVO → Reactivar -->
+    <a th:if="${producto.estatus == 0}"
+       th:href="@{/inventario/reactivar/{id}(id=${producto.idProducto})}"
+       class="btn btn-success">
+        Reactivar
+    </a>
+
+</td>
+
+
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <a th:href="@{/admin}">Volver al inicio</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

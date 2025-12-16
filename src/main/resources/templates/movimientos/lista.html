@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Histórico de Movimientos</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #e3f2fd);
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1a237e;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .filtros {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filtros a {
+            text-decoration: none;
+            padding: 8px 14px;
+            margin: 0 4px;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #1a237e;
+            border: 1px solid #1a237e;
+            transition: 0.3s;
+        }
+
+        .filtros a:hover {
+            background: #1a237e;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background: #1a237e;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tr:hover {
+            background: #f1f3f6;
+        }
+
+        .entrada {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .salida {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        .back {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #1a237e;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Histórico de Movimientos</h2>
+
+<div class="container">
+
+    <div class="filtros">
+        <a th:href="@{/movimientos}">Todos</a>
+        <a th:href="@{/movimientos(tipo=ENTRADA)}">Entradas</a>
+        <a th:href="@{/movimientos(tipo=SALIDA)}">Salidas</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Stock Anterior</th>
+            <th>Stock Posterior</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Nota</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="m : ${movimientos}">
+            <td th:text="${m.idMovimiento}"></td>
+            <td th:text="${m.producto.nombre}"></td>
+
+            <td>
+                <span th:if="${m.tipo.name() == 'ENTRADA'}" class="entrada">
+                    ENTRADA
+                </span>
+                <span th:if="${m.tipo.name() == 'SALIDA'}" class="salida">
+                    SALIDA
+                </span>
+            </td>
+
+            <td th:text="${m.cantidad}"></td>
+            <td th:text="${m.stockAnterior}"></td>
+            <td th:text="${m.stockPosterior}"></td>
+            <td th:text="${m.usuario.nombre}"></td>
+            <td th:text="${#temporals.format(m.fechaHora, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${m.nota}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="back">
+        <a th:href="@{/inventario}">Volver al inventario</a>
+    </div>
+
+</div>
+
+</body>
+</html>

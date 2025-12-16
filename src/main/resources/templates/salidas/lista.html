@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Salida de Inventario</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #fff5f5, #e3f2fd);
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #b71c1c;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #c62828;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .btn-salida {
+            padding: 6px 12px;
+            background: #d32f2f;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-salida:hover {
+            background: #b71c1c;
+        }
+
+        .stock-bajo {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #1a237e;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Salida de Productos</h2>
+
+<div class="container">
+
+    <table>
+        <tr>
+            <th>Producto</th>
+            <th>Stock</th>
+            <th>Acción</th>
+        </tr>
+
+        <tr th:each="producto : ${productos}">
+            <td th:text="${producto.nombre}"></td>
+
+            <td>
+                <span th:text="${producto.cantidad}"
+                      th:classappend="${producto.cantidad <= 5} ? 'stock-bajo' : ''">
+                </span>
+            </td>
+
+            <td>
+                <a class="btn-salida"
+                   th:href="@{/salidas/{id}(id=${producto.idProducto})}">
+                    Sacar
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    <div class="back">
+        <a th:href="@{/almacen}">Volver</a>
+    </div>
+
+</div>
+
+</body>
+</html>
+
